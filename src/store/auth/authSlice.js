@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+	import { createSlice } from '@reduxjs/toolkit'
 
 export const authSlice = createSlice({
 	name: 'auth',
@@ -14,16 +14,20 @@ export const authSlice = createSlice({
 			state.errorMessage = undefined;
 		},
 		onLogin: ( state, { payload } ) => { 
+			console.log(payload);
 			state.status = 'authenticated';
 			state.user = payload;
 			state.errorMessage = undefined;
 		},
-		onLogout: ( state ) => { 
-			state.isLoggedIn = 'no-authenticated';
+		onLogout: ( state, { payload } ) => { 
+			state.status = 'not-authenticated';
 			state.user = {};
-			state.errorMessage = undefined;
+			state.errorMessage = payload;
 		},
+		clearErrorMessage: ( state ) => {
+			state.errorMessage = undefined;
+		}
 	},
 });
 
-export const { onLogin, onLogout } = authSlice.actions;
+export const { onLogin, onLogout, clearErrorMessage } = authSlice.actions;
